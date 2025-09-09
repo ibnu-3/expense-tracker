@@ -8,9 +8,9 @@ const generateToken = (id) => {
 export const registerUser = async (req, res) => {
   const { name, email, image, password } = req.body;
   try {
-    const existingUser = await User.find({ email });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(403).json({ message: "user already exists" });
+     return res.status(403).json({ message: "user already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
@@ -35,9 +35,9 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.find({ email });
+    const user = await User.findOne({ email });
     if (user && (await bcrypt.compare(password, user.password))) {
-      res.status(201).json({
+      return res.status(201).json({
         _id: user._id,
         name: user.name,
         email: user.email,
@@ -45,7 +45,7 @@ export const loginUser = async (req, res) => {
         token: generateToken(user._id),
       });
     } else {
-      res.status(401).json({ message: "Invalid credentials" });
+      return res.status(400).json({ message: "Invalid credentials" });
     }
   } catch (error) {
     res.status(500).json({ message: "server error", error: error.message });
@@ -60,7 +60,7 @@ export const userInfo =async (req,res) => {
         if(!user){
             return res.status(404).json({message:"user not found"})
         }
-        res.status(404).json(user)
+        res.status(200).json(user)
     } catch (error) {
         res.status(500).json({ message: "server error", error: error.message });
     console.log(error.message);
@@ -74,7 +74,7 @@ export const getUsers =async (req,res) => {
         if(!users){
             return res.status(404).json({message:"users not found"})
         }
-        res.status(404).json(users)
+        res.status(200).json(users)
     } catch (error) {
         res.status(500).json({ message: "server error", error: error.message });
     console.log(error.message);

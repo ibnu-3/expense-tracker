@@ -13,6 +13,6 @@ export const protect = async (req,res,next) => {
         console.log(error.message)
     }
    }else{
-    return res.status(404).json({message:"Not authorized no token"})
+    return res.status(403).json({message:"Not authorized no token"})
    }
 }

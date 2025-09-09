@@ -5,7 +5,7 @@ const router =express.Router()
 
 router.post('/', registerUser)
 router.post('/login', loginUser)
-router.post('/profile',protect, userInfo)
-router.post('/all',protect, getUsers)
+router.get('/profile',protect, userInfo)
+router.get('/all',protect, getUsers)
 
 export default router;

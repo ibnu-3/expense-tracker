@@ -3,7 +3,8 @@ import cors from 'cors'
 import colors from 'colors'
 import 'dotenv/config'
 import connectDB from './config/db.js'
-import useRoutes from'./routes/useRoutes.js'
+import expenseRoutes from './routes/expenseRoutes.js'
+import  userRoutes from './routes/useRoutes.js'
 
 const app =express()
 
@@ -17,7 +18,8 @@ app.use(cors({
 app.use(express.json())
 connectDB()
 
-app.use('/api/users', useRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/expenses', expenseRoutes)
 
 app.get('/', (req,res)=>{
     res.send('Server is running...')
