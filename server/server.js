@@ -4,6 +4,7 @@ import colors from 'colors'
 import 'dotenv/config'
 import connectDB from './config/db.js'
 import expenseRoutes from './routes/expenseRoutes.js'
+import incomeRoutes from './routes/incomeRoutes.js'
 import  userRoutes from './routes/useRoutes.js'
 
 const app =express()
@@ -20,6 +21,7 @@ connectDB()
 
 app.use('/api/users', userRoutes)
 app.use('/api/expenses', expenseRoutes)
+app.use('/api/incomes', incomeRoutes)
 
 app.get('/', (req,res)=>{
     res.send('Server is running...')

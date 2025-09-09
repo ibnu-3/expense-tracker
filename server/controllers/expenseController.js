@@ -1,4 +1,4 @@
-import { parse } from "dotenv";
+
 import Expense from "../models/Expense.js";
 
 export const addExpense = async (req, res) => {
