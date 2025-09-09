@@ -7,8 +7,8 @@ export const addExpense = async (req, res) => {
     const expense = await Expense.create({
       icon,
       category,
-      amount: parseFloat(amount),
-      date,
+      amount,
+      date: new Date(date),
     });
     res.status(200).json({message:"Expense created Successfully",expense});
   } catch (error) {
@@ -20,7 +20,7 @@ export const addExpense = async (req, res) => {
 //get all
 export const getExpenses = async (req, res) => {
   try {
-    const expenses = await Expense.find({}).sort({ createdAt: -1 });
+    const expenses = await Expense.find(req.user._id).sort({ createdAt: -1 });
     if (!expenses) {
       return res.status(404).json({ message: "Expense not found" });
     }

@@ -3,12 +3,14 @@ import Income from "../models/Income.js";
 
 export const addIncome = async (req, res) => {
   const { icon, source, amount, date } = req.body;
+  const userId=req.user.id;
   try {
     const income = await Income.create({
       icon,
       source,
-      amount: parseFloat(amount),
-      date,
+      amount,
+      date:new Date(date),
+      userId,      
     });
     res.status(200).json({message:"income created Successfully",income});
   } catch (error) {
@@ -19,8 +21,9 @@ export const addIncome = async (req, res) => {
 
 //get all
 export const getIncomes = async (req, res) => {
+  const userId=req.user.id;
   try {
-    const incomes = await Income.find({}).sort({ createdAt: -1 });
+    const incomes = await Income.find({userId}).sort({ date: -1 });
     if (!incomes) {
       return res.status(404).json({ message: "income not found" });
     }
