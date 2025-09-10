@@ -1,8 +1,14 @@
-import React from 'react'
+
+import DashboardLayout from '../layouts/DashboardLayout'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <DashboardLayout activeMenu={'dashboard'}>
+      Home
+      <Link to={'/expense'} >Expense</Link>
+      <Link to={'/income'} >Income</Link>
+    </DashboardLayout>
   )
 }
 
