@@ -3,7 +3,7 @@ import DashboardLayout from '../layouts/DashboardLayout'
 
 const Expense = () => {
   return (
-    <DashboardLayout activeMenu={'expense'}>Expense</DashboardLayout>
+    <DashboardLayout activeMenu={'Expense'}>Expense</DashboardLayout>
   )
 }
 
