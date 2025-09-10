@@ -25,6 +25,6 @@ export const SIDEBAR_DATA =[
         'id':4,
         'icon':MdLogout,
         'label':'Logout',
-        'path':'/login'
+        'path':'logout'
     },
 ]

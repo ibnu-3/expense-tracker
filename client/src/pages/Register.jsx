@@ -31,7 +31,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Name"
-              className="px-4 py-2 rounded border  focus:border-blue-600"
+              className="px-4 py-2 bg-slate-200 rounded border  focus:border-blue-600"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -41,7 +41,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="Email"
-              className="px-4 py-2 rounded border  focus:border-blue-600"
+              className="px-4 py-2 bg-slate-200 rounded border  focus:border-blue-600"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -51,7 +51,7 @@ const Register = () => {
             <input
               type="password"
               placeholder="Password"
-              className="px-4 py-2 rounded border  focus:border-blue-600"
+              className="px-4 py-2 rounded border  focus:border-blue-600 bg-slate-200"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

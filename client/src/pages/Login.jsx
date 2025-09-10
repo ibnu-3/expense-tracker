@@ -40,11 +40,11 @@ const Login = () => {
         <form onSubmit={handleLogin}>
             <div className='flex flex-col  my-2'>
                 <label htmlFor="Email">Email</label>
-                <input type="text" placeholder='Email' className='px-4 py-2 rounded border  focus:border-blue-600' value={email} onChange={(e)=>setEmail(e.target.value)} />
+                <input type="text" placeholder='Email' className='px-4 py-2 rounded border  focus:border-blue-600 bg-slate-200' value={email} onChange={(e)=>setEmail(e.target.value)} />
             </div>
             <div className='flex flex-col  my-3'>
                 <label htmlFor="Password">Password</label>
-                <input type="password" placeholder='Password' className='px-4 py-2 rounded border  focus:border-blue-600' value={password} onChange={(e)=>setPassword(e.target.value)} />
+                <input type="password" placeholder='Password' className='px-4 py-2 bg-slate-200 rounded border  focus:border-blue-600' value={password} onChange={(e)=>setPassword(e.target.value)} />
             </div>
            {error && <p className='text-red-500 text-sm'>{error}</p>}
             <button className='px-4 py-2 bg-teal-700 text-white rounded-md w-full hover:bg-teal-500 my-4'>Login</button>
