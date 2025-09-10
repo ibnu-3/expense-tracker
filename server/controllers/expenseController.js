@@ -3,8 +3,10 @@ import Expense from "../models/Expense.js";
 
 export const addExpense = async (req, res) => {
   const { icon, category, amount, date } = req.body;
+  const userId =req.user.id;
   try {
     const expense = await Expense.create({
+      userId,
       icon,
       category,
       amount,
@@ -19,8 +21,9 @@ export const addExpense = async (req, res) => {
 
 //get all
 export const getExpenses = async (req, res) => {
+  const userId = req.user.id;
   try {
-    const expenses = await Expense.find(req.user._id).sort({ createdAt: -1 });
+    const expenses = await Expense.find({userId}).sort({ createdAt: -1 });
     if (!expenses) {
       return res.status(404).json({ message: "Expense not found" });
     }
