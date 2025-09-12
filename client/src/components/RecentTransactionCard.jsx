@@ -14,7 +14,7 @@ const RecentTransactionCard = ({item}) => {
                 <h1 className='text-slate-500 text-xs'>{moment(item.date).format('YYYY-MM-DD')}</h1>
             </div>
         </div>
-        <div className={`flex items-center gap-3 px-3 py-1 rounded-md ${item.type === 'income'? 'bg-green-50 text-green-600':'text-red-600 bg-red-50'}`}>{item.type ==='income' ? '+':'-'}${item.amount}{item.type ==='income' ?  <FaArrowTrendUp/> :<FaArrowTrendDown />  } </div>
+        <div className={`flex items-center gap-3 px-3 py-1 rounded-md ${item.type === 'income'? 'bg-green-50 text-green-600':'text-red-600 bg-red-50'}`}>{item.type ==='income' ? '+ ':'- '}${item.amount}{item.type ==='income' ?  <FaArrowTrendUp/> :<FaArrowTrendDown />  } </div>
 
     </div>
   )
