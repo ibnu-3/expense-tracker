@@ -1,9 +1,24 @@
-import { MdAccountBalanceWallet, MdArrowCircleLeft, MdArrowCircleRight } from "react-icons/md";
+import {
+  MdAccountBalanceWallet,
+  MdArrowCircleLeft,
+  MdArrowCircleRight,
+} from "react-icons/md";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { data, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosInstance from "../utils/axios";
-
+import {
+  BarChart,
+  Bar,
+  Rectangle,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { isFragment } from "react-is";
 import DashboardCard from "../components/DashboardCard";
 import RecentTransactionCard from "../components/RecentTransactionCard";
 import Loader from "../components/Loader";
@@ -21,14 +36,12 @@ const Dashboard = () => {
       try {
         setLoading(true);
         const response = await axiosInstance.get("/dashboard");
-        console.log(response?.data);
+        
         setDatas(response?.data?.recentTransactions);
         setData(response?.data);
         setLast30DaysExpenses(response?.data?.last30DaysExpenses.transactions);
         setLast60DaysIncomes(response?.data?.last30DaysIncomes.transactions);
-       
       } catch (error) {
-        
         console.log(error.response?.data?.message);
       } finally {
         setLoading(false);
@@ -36,7 +49,7 @@ const Dashboard = () => {
     };
     fetchDashboardData();
   }, []);
-  
+
   if (loading) {
     return <Loader />;
   }
@@ -89,19 +102,24 @@ const Dashboard = () => {
             to={"/income"}
             className="px-3 py-1.5 flex items-center gap-2 bg-slate-100 hover:bg-slate-200 rounded-md text-sm "
           >
-            See all <MdArrowCircleRight size={20}  />
+            See all <MdArrowCircleRight size={20} />
           </Link>
         </div>
-       {last60DaysIncomes.length === 0 ? (<p className="text-slate-500 p-6 italic text-sm">No incomes added in the last 60 days</p>):(
-         <>
-         {last60DaysIncomes.map((item, index) => (
-          <ul className="" key={index}>
-            <li>
-              <IncomeCard item={item} />
-            </li>
-          </ul>
-        ))}</>
-       )}
+        {last60DaysIncomes.length === 0 ? (
+          <p className="text-slate-500 p-6 italic text-sm">
+            No incomes added in the last 60 days
+          </p>
+        ) : (
+          <>
+            {last60DaysIncomes.map((item, index) => (
+              <ul className="" key={index}>
+                <li>
+                  <IncomeCard item={item} />
+                </li>
+              </ul>
+            ))}
+          </>
+        )}
       </div>
       <div className="my-5 mx-auto bg-white rounded-md ">
         <div className="flex items-center justify-between p-3">
@@ -120,6 +138,34 @@ const Dashboard = () => {
             </li>
           </ul>
         ))}
+      </div>
+      <div className="my-5 mx-auto">
+        <p>hello</p>
+        <ResponsiveContainer className={'bg-white'} width="100%" height="100%">
+          <BarChart
+            width={500}
+            height={300}
+            data={last30DaysExpenses}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey='category' />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar
+              dataKey='amount'
+              fill="#8884d8"
+              activeBar={<Rectangle fill="pink" stroke="blue" />}
+            />
+           
+          </BarChart>
+        </ResponsiveContainer>
       </div>
     </DashboardLayout>
   );
