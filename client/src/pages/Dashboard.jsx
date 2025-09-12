@@ -1,39 +1,64 @@
-import { MdAccountBalanceWallet } from "react-icons/md";
+import { MdAccountBalanceWallet, MdArrowCircleLeft, MdArrowCircleRight, MdForkRight } from "react-icons/md";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { data, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosInstance from "../utils/axios";
 
 import DashboardCard from "../components/DashboardCard";
+import RecentTransactionCard from "../components/RecentTransactionCard";
 
 const Dashboard = () => {
-  const [data, setData]=useState({})
-  useEffect(()=>{
-    const fetchDashboardData =async () => {
+  const [datas, setDatas] = useState([]);
+  useEffect(() => {
+    const fetchDashboardData = async () => {
       try {
-        const response = await axiosInstance.get('/dashboard')
-        console.log(response.data)
-        setData(response.data);
-      
+        const response = await axiosInstance.get("/dashboard");
+        console.log(response.data.recentTransactions);
+        setDatas(response.data.recentTransactions);
       } catch (error) {
         // setError(error.response?.data?.message)
-        console.log(error.response?.data?.message)
+        console.log(error.response?.data?.message);
       }
-    }
-    fetchDashboardData()
-  },[])
+    };
+    fetchDashboardData();
+  }, []);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
-  
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-       
-          <DashboardCard  icon={<MdAccountBalanceWallet />} amount={data.totalBalance} label='Total Balance' color='bg-purple-500'/>
-          <DashboardCard  icon={<MdAccountBalanceWallet />} amount={data.totalIncome} label='Total Income' color='bg-orange-500'/>
-          <DashboardCard  icon={<MdAccountBalanceWallet />} amount={data.totalExpense} label='Total Expense' color='bg-yellow-500'/>
-        
+          <DashboardCard
+            icon={<MdAccountBalanceWallet />}
+            amount={data.totalBalance}
+            label="Total Balance"
+            color="bg-purple-500"
+          />
+          <DashboardCard
+            icon={<MdAccountBalanceWallet />}
+            amount={data.totalIncome}
+            label="Total Income"
+            color="bg-orange-500"
+          />
+          <DashboardCard
+            icon={<MdAccountBalanceWallet />}
+            amount={data.totalExpense}
+            label="Total Expense"
+            color="bg-yellow-500"
+          />
+        </div>
       </div>
+      <div className="my-5 mx-auto bg-white rounded-md ">
+        <div className="flex items-center justify-between p-3">
+          <h1 className="font-medium text-xl ">Recent Transactions</h1>
+          <Link to={'/expenses'} className="px-3 py-1.5 flex items-center gap-2 bg-slate-100 hover:bg-slate-200 rounded-md text-sm ">See All <MdArrowCircleRight size={20}/> </Link>
+        </div>
+        {datas.map((item, index) => (
+          <ul className="" key={index} >
+            <li >
+              <RecentTransactionCard item={item} />
+            </li>
+          </ul>
+        ))}
       </div>
     </DashboardLayout>
   );
