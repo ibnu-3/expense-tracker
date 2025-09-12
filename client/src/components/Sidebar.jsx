@@ -23,7 +23,7 @@ const Sidebar = ({activeMenu}) => {
       <div>
         {SIDEBAR_DATA.map((item)=>(
           <ul key={item.id} className='p-3 '>
-            <li onClick={()=>handleClick(item.path)} className={`${activeMenu === item.label ? 'bg-purple-600 hover:bg-purple-800 text-slate-300  ':''} flex  items-center  font-bold text-slate-700 cursor-pointer px-5 py-2.5 hover:bg-slate-200 rounded-md`}><item.icon size={25} className='mr-3'/> {item.label}</li>
+            <li onClick={()=>handleClick(item.path)} className={`${activeMenu === item.label ? 'bg-purple-600 hover:bg-purple-700 text-slate-300  ':'text-slate-700'} flex  items-center  font-bold  cursor-pointer px-5 py-2.5 hover:bg-slate-200 rounded-md`}><item.icon size={25} className='mr-3'/> {item.label}</li>
           </ul>
         ))}
       </div>
