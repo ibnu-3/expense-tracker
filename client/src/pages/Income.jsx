@@ -3,10 +3,15 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import axiosInstance from "../utils/axios";
 import IncomeCard from "../components/IncomeCard";
 import Loader from "../components/Loader";
+import IncomeModal from "../modals/IncomeModal";
 
 const Income = () => {  
   const [incomes, setIncomes]=useState([])
   const [loading, setLoading]=useState(false)
+  const [open, setOpen]=useState(false)
+  const handleModel=()=>{
+    setOpen(!open)
+  }
   useEffect(()=>{
    const fetchIncomes = async () => {
      try {
@@ -22,11 +27,10 @@ const Income = () => {
    };
    fetchIncomes()
   },[])
-  if(loading){
-    return <Loader/>
-  }
+  
   return (
     <DashboardLayout activeMenu={"Income"}>
+     {open &&  <IncomeModal handleModel={handleModel}/>}
       <div className="flex items-center justify-between my-5 rounded-md p-5 mx-auto bg-white gap-4">
         <div>
           <h1 className="block font-semibold">Income OverView</h1>
@@ -35,7 +39,7 @@ const Income = () => {
           </p>
         </div>
         <div>
-          <button className="hidden sm:flex px-3 py-1 font-bold text-sm items-center  rounded-md border bg-purple-50  text-purple-600 hover:text-purple-700 hover:bg-purple-100">
+          <button onClick={handleModel} className="hidden sm:flex px-3 py-1 font-bold text-sm items-center  rounded-md border bg-purple-50  text-purple-600 hover:text-purple-700 hover:bg-purple-100">
          + Add Income
         </button>
           <button className=" px-3 py-1 font-bold text-xl sm:hidden rounded-md border bg-purple-50  text-purple-600 hover:text-purple-700 hover:bg-purple-100">
