@@ -21,7 +21,7 @@ const Register = () => {
   }
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="w-[40%] bg-white p-3 rounded-md">
+      <div className="w-[75%] sm:w-[40%] bg-white p-3 rounded-md">
         <h1 className="text-xl font-bold text-center py-6">
           Create an Account
         </h1>

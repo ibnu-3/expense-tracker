@@ -1,4 +1,4 @@
-import { MdAccountBalanceWallet, MdArrowCircleLeft, MdArrowCircleRight, MdForkRight } from "react-icons/md";
+import { MdAccountBalanceWallet, MdArrowCircleRight } from "react-icons/md";
 import DashboardLayout from "../layouts/DashboardLayout";
 import { data, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -6,23 +6,30 @@ import axiosInstance from "../utils/axios";
 
 import DashboardCard from "../components/DashboardCard";
 import RecentTransactionCard from "../components/RecentTransactionCard";
+import Loader from "../components/Loader";
 
 const Dashboard = () => {
   const [datas, setDatas] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
+        setLoading(true);
         const response = await axiosInstance.get("/dashboard");
         console.log(response.data.recentTransactions);
         setDatas(response.data.recentTransactions);
       } catch (error) {
         // setError(error.response?.data?.message)
         console.log(error.response?.data?.message);
+      } finally {
+        setLoading(false);
       }
     };
     fetchDashboardData();
   }, []);
-
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="my-5 mx-auto">
@@ -50,11 +57,16 @@ const Dashboard = () => {
       <div className="my-5 mx-auto bg-white rounded-md ">
         <div className="flex items-center justify-between p-3">
           <h1 className="font-medium text-xl ">Recent Transactions</h1>
-          <Link to={'/expenses'} className="px-3 py-1.5 flex items-center gap-2 bg-slate-100 hover:bg-slate-200 rounded-md text-sm ">See All <MdArrowCircleRight size={20}/> </Link>
+          <Link
+            to={"/expense"}
+            className="px-3 py-1.5 flex items-center gap-2 bg-slate-100 hover:bg-slate-200 rounded-md text-sm "
+          >
+            See all <MdArrowCircleRight size={20} />
+          </Link>
         </div>
         {datas.map((item, index) => (
-          <ul className="" key={index} >
-            <li >
+          <ul className="" key={index}>
+            <li>
               <RecentTransactionCard item={item} />
             </li>
           </ul>

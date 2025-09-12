@@ -7,7 +7,7 @@ const DashboardCard = ({icon, amount, label,color}) => {
         {icon}
         </div>
         <div >
-            <h1 className='block text-slate-500 hover:bg-slate-200'>{label}</h1>
+            <h1 className='block text-slate-500 '>{label}</h1>
             <p>${amount}</p>
         </div>
     </div>
