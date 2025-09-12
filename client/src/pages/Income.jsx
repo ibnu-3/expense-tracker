@@ -1,6 +1,30 @@
+import { useEffect, useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
+import axiosInstance from "../utils/axios";
+import IncomeCard from "../components/IncomeCard";
+import Loader from "../components/Loader";
 
-const Income = () => {
+const Income = () => {  
+  const [incomes, setIncomes]=useState([])
+  const [loading, setLoading]=useState(false)
+  useEffect(()=>{
+   const fetchIncomes = async () => {
+     try {
+      setLoading(true)
+      const response = await axiosInstance.get('/incomes')
+      console.log(response.data)
+      setIncomes(response.data)
+    } catch (error) {
+      console.log(error.response?.data?.message)
+    }finally{
+      setLoading(false)
+    }
+   };
+   fetchIncomes()
+  },[])
+  if(loading){
+    return <Loader/>
+  }
   return (
     <DashboardLayout activeMenu={"Income"}>
       <div className="flex items-center justify-between my-5 rounded-md p-5 mx-auto bg-white gap-4">
@@ -11,7 +35,7 @@ const Income = () => {
           </p>
         </div>
         <div>
-          <button className="hidden sm:flex px-3 py-1 font-bold text-sm  rounded-md border bg-purple-50  text-purple-600 hover:text-purple-700 hover:bg-purple-100">
+          <button className="hidden sm:flex px-3 py-1 font-bold text-sm items-center  rounded-md border bg-purple-50  text-purple-600 hover:text-purple-700 hover:bg-purple-100">
          + Add Income
         </button>
           <button className=" px-3 py-1 font-bold text-xl sm:hidden rounded-md border bg-purple-50  text-purple-600 hover:text-purple-700 hover:bg-purple-100">
@@ -19,6 +43,27 @@ const Income = () => {
         </button>
        
         </div>
+      </div>
+      <div className="my-5 mx-auto bg-white rounded-md ">
+        <div className="flex items-center justify-between p-3">
+          <h1 className="font-medium text-xl ">Incomes Sources</h1>
+         
+        </div>
+        {incomes.length === 0 ? (
+          <p className="text-slate-500 p-6 italic text-sm">
+            No incomes added yet.
+          </p>
+        ) : (
+          <>
+            {incomes.map((item, index) => (
+              <ul className="" key={index}>
+                <li>
+                  <IncomeCard item={item} />
+                </li>
+              </ul>
+            ))}
+          </>
+        )}
       </div>
     </DashboardLayout>
   );
