@@ -1,4 +1,4 @@
-import { MdOutlineDashboard } from "react-icons/md";
+import { MdOutlineDashboard,MdAccountBalanceWallet, MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { LuWalletMinimal } from "react-icons/lu";
 import { SiExpensify } from "react-icons/si";
 import { MdLogout } from "react-icons/md";
@@ -28,3 +28,27 @@ export const SIDEBAR_DATA =[
         'path':'logout'
     },
 ]
+
+// export const DASHBOARED_DATA =[
+//     {
+//         'id':1,
+//         'icon':MdAccountBalanceWallet,
+//         'color':'purple',
+//         'label':'Toatal balance',
+//         'amount':totalBalance
+//     },
+//     {
+//         'id':2,
+//         'icon':MdOutlineAccountBalanceWallet,
+//         'color':'orange',
+//         'label':'Total Income',
+//         'amount':totalIncome
+//     },
+//     {
+//         'id':1,
+//         'icon':MdAccountBalanceWallet,
+//         'color':'red',
+//         'label':'Total Expence',
+//         'amount':totalExpense
+//     },
+// ]

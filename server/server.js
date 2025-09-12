@@ -13,7 +13,7 @@ const app =express()
 app.use(cors({
     origin:'https://crispy-guacamole-x5q45qwxq7xqhp4g-5173.app.github.dev',
     methods:['POST','GET','PUT','PATCH','OPTIONS','DELETE'],
-    allowedHeaders:['Content-Type','Authorization'],
+    allowedHeaders:['Origin','X-Request-With','Content-Type','Authorization'],
     credentials:true,
     optionsSuccessStatus:200 || 204,  
 }))
