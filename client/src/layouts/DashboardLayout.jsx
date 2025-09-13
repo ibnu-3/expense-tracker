@@ -7,9 +7,9 @@ const DashboardLayout = ({children, activeMenu}) => {
     <div>
       <Navbar activeMenu={activeMenu}/>
       
-      <div className='flex '>
+      <div className='flex pt-16 '>
         <Sidebar activeMenu={activeMenu}/>
-        <div className='px-3 w-full'>
+        <div className='px-3 w-full overflow-auto sm:pl-64'>
             {children}
         </div>
       

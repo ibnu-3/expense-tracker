@@ -42,7 +42,7 @@ const Dashboard = () => {
         setLast30DaysExpenses(response?.data?.last30DaysExpenses.transactions);
         setLast60DaysIncomes(response?.data?.last30DaysIncomes.transactions);
       } catch (error) {
-        console.log(error.response?.data?.message);
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -50,11 +50,13 @@ const Dashboard = () => {
     fetchDashboardData();
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
+  
   return (
     <DashboardLayout activeMenu="Dashboard">
+      {loading ? (( <>
+       <p className="text-center pt-24 text-slate-500 ">Data loading please wait...</p>
+       <Loader/>
+       </>)):(<>
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <DashboardCard
@@ -166,7 +168,7 @@ const Dashboard = () => {
            
           </BarChart>
         </ResponsiveContainer>
-      </div>
+      </div></>)}
     </DashboardLayout>
   );
 };

@@ -30,12 +30,13 @@ const Login = () => {
           setLoading(false)
         }    
     }
-  if(loading){
-    return <Loader/>
-  }
+
   return (
     <div className='flex items-center justify-center h-screen'>
-      <div className='w-[75%] sm:w-[40%] bg-white p-3 rounded-md'>
+     {loading ? ( <>
+       <p className="text-center pt-4 text-slate-500 ">logging user please wait...</p>
+       <Loader/>
+       </>):(<> <div className='w-[75%] sm:w-[40%] bg-white p-3 rounded-md'>
           <h1 className='text-xl font-bold text-center py-6'>Login</h1>
         <form onSubmit={handleLogin}>
             <div className='flex flex-col  my-2'>
@@ -50,7 +51,7 @@ const Login = () => {
             <button className='px-4 py-2 bg-teal-700 text-white rounded-md w-full hover:bg-teal-500 my-4'>Login</button>
             <p className='text-sm text-slate-500'>Don't have an account? <Link className='text-sky-500 ' to={'/register'}>Register</Link></p>
         </form>
-      </div>
+      </div></>)}
     </div>
   )
 }

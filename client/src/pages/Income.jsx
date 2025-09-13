@@ -4,11 +4,13 @@ import axiosInstance from "../utils/axios";
 import IncomeCard from "../components/IncomeCard";
 import Loader from "../components/Loader";
 import IncomeModal from "../modals/IncomeModal";
+import { useNavigate } from "react-router-dom";
 
 const Income = () => {  
   const [incomes, setIncomes]=useState([])
   const [loading, setLoading]=useState(false)
   const [open, setOpen]=useState(false)
+  const navigate = useNavigate()
   const handleModel=()=>{
     setOpen(!open)
   }
@@ -27,10 +29,14 @@ const Income = () => {
    };
    fetchIncomes()
   },[])
+  const addIncome = async (incomeData) => {
+    setIncomes([...incomes, incomeData])
+    setOpen(false)
+  }
   
   return (
     <DashboardLayout activeMenu={"Income"}>
-     {open &&  <IncomeModal handleModel={handleModel}/>}
+     {open &&  <IncomeModal  isOpen={open} onClose={()=>setOpen(false)} onIncomeAdded={addIncome} />}
       <div className="flex items-center justify-between my-5 rounded-md p-5 mx-auto bg-white gap-4">
         <div>
           <h1 className="block font-semibold">Income OverView</h1>
@@ -53,7 +59,12 @@ const Income = () => {
           <h1 className="font-medium text-xl ">Incomes Sources</h1>
          
         </div>
-        {incomes.length === 0 ? (
+       {loading ?( <>
+       <p className="text-center py-4 text-slate-500 ">Income loading please wait...</p>
+       <Loader/>
+       </>):(
+        <>
+         {incomes.length === 0 ? (
           <p className="text-slate-500 p-6 italic text-sm">
             No incomes added yet.
           </p>
@@ -67,7 +78,8 @@ const Income = () => {
               </ul>
             ))}
           </>
-        )}
+        )}</>
+       )}
       </div>
     </DashboardLayout>
   );

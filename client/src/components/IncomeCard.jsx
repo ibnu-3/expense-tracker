@@ -13,7 +13,7 @@ const IncomeCard = ({item}) => {
                    <h1 className='text-slate-500 text-xs'>{moment(item.date).format('YYYY-MM-DD')}</h1>
                </div>
            </div>
-           <div className='flex items-center gap-3 px-3 py-1 rounded-md text-green-600 bg-red-50'>{'+ '}${item.amount}{<FaArrowTrendUp />  } </div>
+           <div className='flex items-center gap-3 px-3 py-1 rounded-md text-green-600 bg-green-50'>{'+ '}${item.amount}{<FaArrowTrendUp />  } </div>
    
        </div>
      )

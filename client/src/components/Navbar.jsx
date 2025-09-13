@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const Navbar = () => {
     const {user,logout}=useAuth()
   return (
-    <div className='flex justify-between items-center border-b drop-shadow-lg p-4 bg-white'>
+    <div className='flex fixed w-full z-50 top-0  justify-between items-center border-b drop-shadow-lg p-4 bg-white'>
         <Link to={'/'} className='text-xl italic font-bold'>Expense Tracker</Link>
        {!user ? <div className='flex gap-3'>
         <Link className='px-4 py-2 border-2 border-slate-50 bg-slate-300 rounded-md text-black hover:border-blue-500' to={'/login'}>Login</Link>
