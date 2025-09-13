@@ -33,10 +33,13 @@ const Income = () => {
     setIncomes([...incomes, incomeData])
     setOpen(false)
   }
+  const handleHemp=(data)=>{
+  console.log(data)
+  }
   
   return (
     <DashboardLayout activeMenu={"Income"}>
-     {open &&  <IncomeModal  isOpen={open} onClose={()=>setOpen(false)} onIncomeAdded={addIncome} />}
+     {open &&  <IncomeModal  isOpen={open} onClose={()=>setOpen(false)} onIncomeAdded={addIncome} handleHemp={handleHemp}/>}
       <div className="flex items-center justify-between my-5 rounded-md p-5 mx-auto bg-white gap-4">
         <div>
           <h1 className="block font-semibold">Income OverView</h1>
