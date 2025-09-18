@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import userRoutes from './routes/userRoutes.js'
+import incomeRoutes from './routes/incomeRoutes.js'
 dotenv.config();
 const port = process.env.PORT;
 
@@ -27,9 +28,10 @@ app.use(cookieParser());
 
 connectDB();
 app.use('/api/users', userRoutes)
+app.use('/api/incomes', incomeRoutes)
 app.get("/", (req, res) => {
   res.send("Server is running...");
 });
 app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`.yellow.bold);
+  console.log(`Server is running on port: ${port}`.yellow);
 });
