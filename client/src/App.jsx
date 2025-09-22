@@ -6,10 +6,12 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoutes from "./components/PrivateRoutes";
 import Income from "./pages/Income";
 import Expense from "./pages/Expense";
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   return (
     <BrowserRouter>
+    <AuthProvider>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -37,7 +39,7 @@ const App = () => {
             </PrivateRoutes>
           }
         />
-      </Routes>
+      </Routes></AuthProvider>
     </BrowserRouter>
   );
 };
