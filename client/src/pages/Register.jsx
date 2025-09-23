@@ -12,18 +12,14 @@ const Register = () => {
 const {register} = useAuth() 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        if(!fullName || !email || !password){
-            setError('all fields are required!')
-            return;
-        }
         setError('')
         setLoading(true)
         try {
            await register(fullName, email, password)
-        //    navigate('/')           
+            navigate('/')           
         } catch (error) {
             console.log(error)
-            setError(error)
+            setError(error || 'login failed')
         }finally{
             setLoading(false)
         }

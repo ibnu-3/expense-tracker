@@ -20,7 +20,7 @@ app.use(
       "Cookie",
       "X-Requested-With",
     ],
-    methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS", "HEAD"],
+    methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS", "HEAD",'ORIGIN'],
     credentials: true,
   })
 );

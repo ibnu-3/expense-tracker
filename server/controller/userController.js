@@ -17,7 +17,7 @@ export const registerUser = async (req,res) => {
     try {
         const existingUser = await User.findOne({email})
         if(existingUser){
-            return res.status(400).json({message:'user already exists'})
+            return res.status(402).json({message:'user already exists'})
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({fullName,email, password:hashedPassword});
@@ -49,7 +49,7 @@ export const loginUser = async (req,res) => {
                 email:user.email
             })
         }else{
-            return res.status(400).json({message:"Invalid email or password"})
+            return res.status(402).json({message:"Invalid email or password"})
         }
     } catch (error) {
         console.log(error.message)
