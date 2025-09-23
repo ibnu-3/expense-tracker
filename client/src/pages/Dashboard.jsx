@@ -10,6 +10,7 @@ import {
   MdTrendingDown,
 } from "react-icons/md";
 import BarChart from "../components/BarChart";
+import ExpenseBarChart from "../components/ExpenseBarChart";
 
 const Dashboard = () => {
   const [incomes, setIncomes] = useState([]);
@@ -47,7 +48,7 @@ const Dashboard = () => {
   const totalBalance = totalIncome - totalExpense;
   return (
     <DashboardLayout activeMenu={"Dashboard"}>
-      <div className="">
+      <div className="flex flex-col gap-6">
         <div className="flex flex-wrap items-center gap-6 ">
           <div className="p-2  rounded-md bg-white flex-1 flex items-center gap-3">
             <div className="p-2.5  rounded-full bg-purple-500 ">
@@ -77,28 +78,36 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="mt-4 rounded-md bg-white p-2 max-w-96 ">
-          <h1 className="font-bold text-center  ">Total Overview</h1>
-          <BarChart totalExpense={totalExpense} totalIncome={totalIncome} />
+        <div className="flex  gap-4">
+          <div className="mt-4 rounded-md bg-white p-2 w-96 ">
+            <h1 className="font-bold text-center  ">Total Overview</h1>
+            <BarChart totalExpense={totalExpense} totalIncome={totalIncome} />
+          </div>
+          <div className="mt-4 w-96 bg-white p-2 rounded-md">
+            <h1 className="font-bold text-lg py-4">Recent Expenses</h1>
+            {last60DaysExpenses.length === 0 ? (
+              <p>No expenses for now</p>
+            ) : (
+              <ul className="space-y-5">
+                {last60DaysExpenses.map((item, index) => (
+                  <li key={index} className="flex items-center justify-between">
+                    <div className="flex gap-2 items-center font-bold">
+                      <div className="p-2.5 bg-red-500/70 rounded-md ">
+                        <MdOutline3gMobiledata className="" />
+                      </div>
+                      <p>{item.category}</p>
+                    </div>{" "}
+                    <div className="px-4 py-2 flex items-center gap-2 rounded-md bg-red-100 text-red-600">
+                      -${item.amount} <MdTrendingDown />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
-        <div className="mt-4">
-          <h1>Recent Expenses</h1>
-          {last60DaysExpenses.length === 0 ? (
-            <p>No expenses for now</p>
-          ) : (
-            <ul className="space-y-5">
-              {last60DaysExpenses.map((item, index) => (
-                <li key={index} className="flex items-center justify-between">
-                  <div className="p-1.5 bg-red-500">
-                    <MdOutline3gMobiledata /> 
-                  </div>{" "}{item.category}
-                  <div className="px-4 py-2 flex items-center gap-2 rounded-md bg-red-100 text-red-600">
-                    -${item.amount} <MdTrendingDown />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
+        <div>
+          <ExpenseBarChart data={last60DaysExpenses}/>
         </div>
       </div>
     </DashboardLayout>
