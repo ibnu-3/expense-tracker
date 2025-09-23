@@ -9,7 +9,7 @@ export const getAllIncomes = async (req, res) => {
     if (!incomes) {
       return res.status(404).json({ message: "incomes not found!" });
     }
-    return res.status(200).json({ counts: incomes.length, incomes });
+    return res.status(200).json(incomes);
   } catch (error) {
     console.log(error.message);
     return res
@@ -40,7 +40,7 @@ export const last30DaysIncome = async (req, res) => {
       user: req.user._id,
       date: { $gte: thirtyDaysAgo },
     });
-    res.status(200).json({count:incomes.length,incomes});
+    res.status(200).json(incomes);
   } catch (error) {
     console.log(error.message);
     return res

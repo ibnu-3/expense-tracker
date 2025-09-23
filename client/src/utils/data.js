@@ -19,7 +19,7 @@ export const SIDEBAR_ITEMS =[
         'path':'/expense'
     },
     {
-        'id':1,
+        'id':4,
         'label':"Logout",
         'icons':MdLogout,
         'path':'/login'

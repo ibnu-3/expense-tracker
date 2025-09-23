@@ -9,7 +9,7 @@ export const getAllExpenses = async (req, res) => {
     if (!expenses) {
       return res.status(404).json({ message: "expenses not found!" });
     }
-    return res.status(200).json({ counts: expenses.length, expenses });
+    return res.status(200).json( expenses );
   } catch (error) {
     console.log(error.message);
     return res
@@ -40,7 +40,7 @@ export const last60DaysExpense = async (req, res) => {
       user: req.user._id,
       date: { $gte: sixtyDaysAgo },
     });
-    res.status(200).json({count:expenses.length,expenses});
+    res.status(200).json(expenses);
   } catch (error) {
     console.log(error.message);
     return res
