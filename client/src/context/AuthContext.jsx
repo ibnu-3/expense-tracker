@@ -5,8 +5,10 @@ import { useEffect } from "react"
 
 export const AuthProvider =({children})=>{
     const [user, setUser]=useState(null)
+    const [loading, setLoading] =useState(false)
 useEffect(()=>{
   const chechUser =async () => {
+    
     try {
         const response = await axiosInstance.get('/api/users/me')
         setUser(response.data)
@@ -17,6 +19,7 @@ useEffect(()=>{
   chechUser();
 },[]);
     const register = async (fullName, email, password) => {
+       
         try {
             const response =await axiosInstance.post('/api/users/register', {fullName,email,password});
             // console.log(response.data)
@@ -29,6 +32,7 @@ useEffect(()=>{
     }
 
     const login = async (email, password) => {
+        
         try {
             const response =await axiosInstance.post('/api/users/login', {email,password});
             console.log(response.data)
@@ -46,10 +50,10 @@ useEffect(()=>{
             console.log(error.message ||'logout failed')
         }
     }
-    const value={user, register,login, logout}
+    const value={user, register,login, logout, loading}
     return(
         <AuthContext.Provider value={value}>
-            {children}
+            {!loading && children}
         </AuthContext.Provider>
     )
 }

@@ -7,8 +7,10 @@ export const AppProvider =({children})=>{
   const [expenses, setExpenses] = useState([]);
   const [last60DaysExpenses, setLast60DaysExpenses] = useState([]);
   const [last30DaysIncomes, setLast30DaysIncomes] = useState([]);
+  const [loading, setLoading] =useState(false)
 useEffect(() => {
     const fetchData = async () => {
+    
       try {
         const incomeResponse = await axiosInstance.get("/api/incomes");
         const expenseResponse = await axiosInstance.get("/api/expenses");
@@ -29,6 +31,7 @@ useEffect(() => {
     fetchData();
   }, []);
 const addIncome =async (source,amount,date) => {
+ 
     try {
         const res =await axiosInstance.post('/api/incomes', {source,amount,date})
         setIncomes([...incomes, res.data])
@@ -36,6 +39,9 @@ const addIncome =async (source,amount,date) => {
     } catch (error) {
         console.log(error)
     }
+}
+const editIncome = async (id) => {
+  
 }
 
 const deleteIncome =async (id) => {
@@ -49,7 +55,7 @@ const deleteIncome =async (id) => {
     const value={incomes,addIncome,deleteIncome, expenses,last30DaysIncomes, last60DaysExpenses}
     return(
         <AppContext.Provider value={value}>
-            {children}
+            {!loading && children}
         </AppContext.Provider>
     )
 }

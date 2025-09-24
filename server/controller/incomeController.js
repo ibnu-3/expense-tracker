@@ -4,7 +4,7 @@ import Income from "../models/Income.js";
 export const getAllIncomes = async (req, res) => {
   try {
     const incomes = await Income.find({ user: req.user._id }).sort({
-      createdAt: -1,
+      createdAt: 1,
     });
     if (!incomes) {
       return res.status(404).json({ message: "incomes not found!" });

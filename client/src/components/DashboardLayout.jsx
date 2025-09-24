@@ -6,11 +6,9 @@ const DashboardLayout = ({ children,activeMenu }) => {
   return (
     <div className="">
       <Navbar />
-      <div className="flex-1 flex  pt-[60px] ">
-        <div className="hidden sm:flex sm:w-48 ">
-            <Sidebar activeMenu={activeMenu}/>
-        </div  >
-        <div className=" rounded-md p-3  flex-grow h-screen ">{children}</div>
+      <div className=" flex  pt-[60px] ">
+         <Sidebar activeMenu={activeMenu}/>
+        <div className=" rounded-md p-3  flex-grow h-screen sm:ml-48 ">{children}</div>
       </div>
     </div>
   );

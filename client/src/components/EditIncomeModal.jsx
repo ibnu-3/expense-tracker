@@ -1,25 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdClose } from 'react-icons/md'
 import useExpenseTracker from '../context/useExpenseTracker'
 import moment from 'moment'
-const AddIncomeModal = ({open, onClose}) => {
+const EditIncomeModal = ({open, onClose}) => {
     const [source,setSource]=useState('')
     const [amount,setAmount]=useState(0)
     const [date,setDate]=useState('')
     const [error,setError]=useState('')
     const [loading,setLoading]=useState(false)
-    const {addIncome}=useExpenseTracker();
+    const {editIncome}=useExpenseTracker();
+    
 
     const handleSubmit =async (e) => {
         e.preventDefault();
-        if(!source || !amount || !date){
-            setError('All fields are required!')
-            return;
-        }
+      
         setError('')
         setLoading(true)
         try {
-            await addIncome(source,amount,date)
+            await editIncome(source,amount,date)
             onClose()
         } catch (error) {
             console.log(error)
@@ -34,7 +32,7 @@ const AddIncomeModal = ({open, onClose}) => {
                 <MdClose/>
             </div>
             <form onSubmit={handleSubmit}>
-                <h1 className='text-center  text-2xl  py-4'>Add New Income</h1>
+                <h1 className='text-center  text-2xl  py-4'>Edit the Income</h1>
                 <div className='mb-4'>
                     <label htmlFor="Source" className='block mb-2'>Source</label>
                     <input type="text" placeholder='Freelance, Salary ...' className='px-4 py-2 w-full rounded-md bg-slate-300 'value={source} onChange={(e)=>setSource(e.target.value)} />
@@ -47,11 +45,11 @@ const AddIncomeModal = ({open, onClose}) => {
                     <label htmlFor="Date" className='block mb-2'>Date</label>
                     <input type="date" placeholder='' className='px-4 py-2 w-full rounded-md bg-slate-300 'value={date} onChange={(e)=>setDate(e.target.value)} />
                 </div>
-                <button disabled={loading} className='px-5 py-2 rounded-md bg-purple-600 text-slate-200 w-full mt-4 disabled:bg-purple-500 ' type='submit'>{loading ?'adding ...':"Add Income"}</button>
+                <button disabled={loading} className='px-5 py-2 rounded-md bg-purple-600 text-slate-200 w-full mt-4 disabled:bg-purple-500 ' type='submit'>{loading ?'Editing ...':"Edit Income"}</button>
             </form>
         </div>
     </div>
   )
 }
 
-export default AddIncomeModal
+export default EditIncomeModal

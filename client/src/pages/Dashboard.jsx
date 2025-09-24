@@ -24,8 +24,8 @@ const Dashboard = () => {
   return (
     <DashboardLayout activeMenu={"Dashboard"}>
       <div className="flex flex-col gap-6">
-        <div className="flex flex-wrap items-center gap-6 ">
-          <div className="p-2  rounded-md bg-white flex-1 flex items-center gap-3">
+        <div className="flex  flex-wrap items-center gap-6 ">
+          <div className="p-2 flex-1 rounded-md bg-white  flex items-center gap-3">
             <div className="p-2.5  rounded-full bg-purple-500 ">
               <MdAllInclusive size={30} />
             </div>
@@ -34,7 +34,7 @@ const Dashboard = () => {
               <p className="font-semibold ">${totalBalance}</p>
             </div>
           </div>
-          <div className="p-2  rounded-md bg-white flex-1 flex items-center gap-3">
+          <div className="p-2 flex-1 rounded-md bg-white  flex items-center gap-3">
             <div className="p-2.5  rounded-full bg-teal-500 ">
               <MdOutlinePayment size={30} />
             </div>
@@ -43,7 +43,7 @@ const Dashboard = () => {
               <p className="font-semibold ">${totalIncome}</p>
             </div>
           </div>
-          <div className="p-2  rounded-md bg-white flex-1 flex items-center gap-3">
+          <div className="p-2 flex-1  rounded-md bg-white  flex items-center gap-3">
             <div className="p-2.5  rounded-full bg-pink-500 ">
               <MdOutlinePayments size={30} />
             </div>
