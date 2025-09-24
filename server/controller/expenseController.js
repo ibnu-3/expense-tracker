@@ -62,7 +62,7 @@ export const createExpense = async (req, res) => {
     });
     return res
       .status(201)
-      .json({ message: "expense created successfully!", expense });
+      .json(expense );
   } catch (error) {
     console.log(error.message);
     return res

@@ -28,8 +28,25 @@ useEffect(() => {
     };
     fetchData();
   }, []);
+const addIncome =async (source,amount,date) => {
+    try {
+        const res =await axiosInstance.post('/api/incomes', {source,amount,date})
+        setIncomes([...incomes, res.data])
+        console.log(res.data)
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-    const value={incomes, expenses,last30DaysIncomes, last60DaysExpenses}
+const deleteIncome =async (id) => {
+    try {
+        await axiosInstance.delete(`/api/incomes/${id}`)
+        setIncomes((incomes.filter((item)=> item._id !== id)))
+    } catch (error) {
+        console.log(error)
+    }
+}
+    const value={incomes,addIncome,deleteIncome, expenses,last30DaysIncomes, last60DaysExpenses}
     return(
         <AppContext.Provider value={value}>
             {children}

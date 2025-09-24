@@ -62,7 +62,7 @@ export const createIncome = async (req, res) => {
     });
     return res
       .status(201)
-      .json({ message: "Income created successfully!", income });
+      .json( income);
   } catch (error) {
     console.log(error.message);
     return res
