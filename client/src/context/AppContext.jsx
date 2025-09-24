@@ -40,9 +40,10 @@ const addIncome =async (source,amount,date) => {
         console.log(error)
     }
 }
-const editIncome = async (id) => {
-  
-}
+// const editIncome = async (id) => {
+//   const res = await axiosInstance.get(`/api/incomes/${id}`)
+//   // setIncomes(incomes.map((item)=> item._id === id ? res.data : item))
+// }
 
 const deleteIncome =async (id) => {
     try {
@@ -52,7 +53,7 @@ const deleteIncome =async (id) => {
         console.log(error)
     }
 }
-    const value={incomes,addIncome,deleteIncome, expenses,last30DaysIncomes, last60DaysExpenses}
+    const value={incomes,addIncome,setIncomes,deleteIncome, expenses,last30DaysIncomes, last60DaysExpenses}
     return(
         <AppContext.Provider value={value}>
             {!loading && children}

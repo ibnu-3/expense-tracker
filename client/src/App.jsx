@@ -8,6 +8,7 @@ import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import { AuthProvider } from "./context/AuthContext";
 import { AppProvider } from "./context/AppContext";
+import EditIncomeModal from "./components/EditIncomeModal";
 
 const App = () => {
   return (
@@ -30,6 +31,14 @@ const App = () => {
               element={
                 <PrivateRoutes>
                   <Income />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="/income/:id"
+              element={
+                <PrivateRoutes>
+                  <EditIncomeModal />
                 </PrivateRoutes>
               }
             />
