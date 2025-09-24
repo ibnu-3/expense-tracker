@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+
 import DashboardLayout from "../components/DashboardLayout";
-import axiosInstance from "../utils/axiosInstance";
+
 import {
   MdAllInclusive,
   MdOutline3gMobiledata,
@@ -11,41 +10,17 @@ import {
 } from "react-icons/md";
 import BarChart from "../components/BarChart";
 import ExpenseBarChart from "../components/ExpenseBarChart";
+import useExpenseTracker from "../context/useExpenseTracker";
 
 const Dashboard = () => {
-  const [incomes, setIncomes] = useState([]);
-  const [expenses, setExpenses] = useState([]);
-  const [last60DaysExpenses, setLast60DaysExpenses] = useState([]);
-  const [last30DaysIncomes, setLast30DaysIncomes] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const incomeResponse = await axiosInstance.get("/api/incomes");
-        const expenseResponse = await axiosInstance.get("/api/expenses");
-        const last60DaysExpenseResponse = await axiosInstance.get(
-          "/api/expenses/last60DaysExpense"
-        );
-        const last30DaysIncomeResponse = await axiosInstance.get(
-          "/api/incomes/last30DaysIncome"
-        );
-        setIncomes(incomeResponse.data);
-        setLast30DaysIncomes(last30DaysIncomeResponse.data);
-        console.log(last30DaysIncomeResponse.data);
-        setExpenses(expenseResponse.data);
-        setLast60DaysExpenses(last60DaysExpenseResponse.data);
-      } catch (error) {
-        console.log(error.message || "failed to fetch data");
-      }
-    };
-    fetchData();
-  }, []);
+ const {incomes,expenses, last60DaysExpenses} =useExpenseTracker()
   const totalIncome = incomes.reduce((acc, transaction) => {
     return acc + transaction.amount;
   }, 0);
   const totalExpense = expenses.reduce((acc, trans) => acc + trans.amount, 0);
 
   const totalBalance = totalIncome - totalExpense;
+  
   return (
     <DashboardLayout activeMenu={"Dashboard"}>
       <div className="flex flex-col gap-6">
@@ -107,7 +82,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div>
-          <ExpenseBarChart data={last60DaysExpenses}/>
+          
         </div>
       </div>
     </DashboardLayout>

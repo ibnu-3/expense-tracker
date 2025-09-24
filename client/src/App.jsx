@@ -7,39 +7,43 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import { AuthProvider } from "./context/AuthContext";
+import { AppProvider } from "./context/AppContext";
 
 const App = () => {
   return (
     <BrowserRouter>
-    <AuthProvider>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route
-          path="/"
-          element={
-            <PrivateRoutes>
-              <Dashboard />
-            </PrivateRoutes>
-          }
-        />
-        <Route
-          path="/income"
-          element={
-            <PrivateRoutes>
-              <Income />
-            </PrivateRoutes>
-          }
-        />
-        <Route
-          path="/expense"
-          element={
-            <PrivateRoutes>
-              <Expense />
-            </PrivateRoutes>
-          }
-        />
-      </Routes></AuthProvider>
+      <AuthProvider>
+        <AppProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoutes>
+                  <Dashboard />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="/income"
+              element={
+                <PrivateRoutes>
+                  <Income />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="/expense"
+              element={
+                <PrivateRoutes>
+                  <Expense />
+                </PrivateRoutes>
+              }
+            />
+          </Routes>
+        </AppProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
