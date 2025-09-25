@@ -9,13 +9,19 @@ import EditExpenseModal from '../components/Expense/EditExpenseModal'
 const Expense = () => {
   const {last60DaysExpenses, expenses}=useExpenseTracker()
    const [open, setOpen] = useState(false);
-   const handleOpen = () => {
-    setOpen(!open);
+   const [selectedExpense, setSelectedExpense] = useState(null);
+   const openEditModal = (expense) => {
+    setSelectedExpense(expense)
+    setOpen(true);
+  };
+   const closeEditModal = () => {
+    setSelectedExpense(null)
+    setOpen(false);
   };
   return (
     <DashboardLayout activeMenu={'Expense'}>
       <div className='flex items-center justify-between'><p></p>
-      <button onClick={handleOpen} className='px-2 py-1.5 text-slate-100 bg-purple-600 rounded-md hover:bg-purple-800'>Add Expense</button></div>
+      <button onClick={()=>setOpen(!open)} className='px-2 py-1.5 text-slate-100 bg-purple-600 rounded-md hover:bg-purple-800'>Add Expense</button></div>
       {open && <AddExpenseModal onClose={()=>setOpen(false)}/>}
       {open && <EditExpenseModal onClose={()=>setOpen(false)}/>}
       
