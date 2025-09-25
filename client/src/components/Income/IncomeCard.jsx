@@ -2,7 +2,7 @@ import moment from 'moment'
 import React from 'react'
 import { MdDelete, MdEdit, MdOutlinePayment, MdTrendingUp } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
-import useExpenseTracker from '../context/useExpenseTracker'
+import useExpenseTracker from '../../context/useExpenseTracker'
 import { toast } from 'react-toastify'
 
 const IncomeCard = ({item}) => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { MdClose } from 'react-icons/md'
-import useExpenseTracker from '../context/useExpenseTracker'
+import useExpenseTracker from '../../context/useExpenseTracker'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 const AddIncomeModal = ({open, onClose}) => {
@@ -32,7 +32,7 @@ const AddIncomeModal = ({open, onClose}) => {
         }
     }
   return (
-    <div className='fixed inset-0 flex items-center justify-center  bg-slate-800/50 backdrop-blur-sm'>
+    <div className='fixed inset-0 flex items-center justify-center  bg-slate-800/50 backdrop-blur-sm z-50'>
         <div className='p-4 rounded-md bg-white sm:w-[60%] w-[80%] relative'>
             <div className='absolute  text-3xl text-slate-800 rounded-md -right-5 bg-slate-100 -top-5 ' onClick={onClose}>
                 <MdClose/>

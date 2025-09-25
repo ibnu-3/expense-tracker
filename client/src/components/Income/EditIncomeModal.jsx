@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { MdClose } from 'react-icons/md'
-import useExpenseTracker from '../context/useExpenseTracker'
+import useExpenseTracker from '../../context/useExpenseTracker'
 import moment from 'moment'
-import axiosInstance from '../utils/axiosInstance'
+import axiosInstance from '../../utils/axiosInstance'
 import { useNavigate, useParams } from 'react-router-dom'
-import DashboardLayout from './DashboardLayout'
+import DashboardLayout from '../DashboardLayout'
 import { toast } from 'react-toastify'
 const EditIncomeModal = ({open, onClose}) => {
     const [source,setSource]=useState('')

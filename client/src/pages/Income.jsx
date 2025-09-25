@@ -26,7 +26,7 @@ const Income = () => {
   };
   return (
     <DashboardLayout activeMenu={"Income"}>
-      <div className=" px-6 sm:px-8  rounded-md max-w-3xl mx-auto">
+      <div className=" px-3 sm:px-8  rounded-md max-w-3xl sm:mx-auto ">
         <div className="flex items-center justify-between py-4">
           <h1 className="py-2 font-bold"></h1>
           <button
@@ -37,16 +37,18 @@ const Income = () => {
           </button>
         </div>
         {open && <AddIncomeModal open={open} onClose={() => setOpen(false)} />}
-          <div className="my-4 h-[450px]  w-full bg-white p-2 rounded-md">
+          
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+          <div className="my-4 h-[450px]  w-full bg-white p-2 rounded-md z-20">
             <h1 className="font-bld px-3">Last 30 Days Income</h1>
             <IncomeBarChart incomeData={last30DaysIncomes}/>           
 
           </div>
-        {loading ? (
-          <Loader />
-        ) : (
           <div className="bg-white rounded-md p-4">
-            <h1 className="p-3 text-xl  font-bold ">All Incomes</h1>
+            <h1 className="py-6 px-3 text-xl  font-bold ">All Incomes</h1>
             {incomes.length === 0 ? (
               <p>No Incomes added yet.</p>
             ) : (
@@ -56,7 +58,7 @@ const Income = () => {
                 ))}
               </ul>
             )}
-          </div>
+          </div></>
         )}
       </div>
     </DashboardLayout>

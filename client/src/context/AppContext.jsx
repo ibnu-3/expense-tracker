@@ -8,6 +8,10 @@ export const AppProvider =({children})=>{
   const [last60DaysExpenses, setLast60DaysExpenses] = useState([]);
   const [last30DaysIncomes, setLast30DaysIncomes] = useState([]);
   const [loading, setLoading] =useState(false)
+  const [incomeListChanged, setIncomeListChanged] = useState(false);
+  const handleChange =()=>{
+    setIncomeListChanged(!incomeListChanged)
+  }
 useEffect(() => {
     const fetchData = async () => {
     
@@ -29,12 +33,13 @@ useEffect(() => {
       }
     };
     fetchData();
-  }, []);
+  }, [incomeListChanged]);
 const addIncome =async (incomeData) => {
  
     try {
         const res =await axiosInstance.post('/api/incomes', incomeData)
         setIncomes([...incomes, res.data])
+        handleChange()
         console.log(res.data)
     } catch (error) {
         console.log(error)
@@ -48,7 +53,8 @@ const addIncome =async (incomeData) => {
 const deleteIncome =async (id) => {
     try {
         await axiosInstance.delete(`/api/incomes/${id}`)
-        setIncomes((incomes.filter((item)=> item._id !== id)))
+        setIncomes((incomes.filter((item)=> item._id !== id)));
+         handleChange()
     } catch (error) {
         console.log(error)
     }
