@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import DashboardLayout from "../components/DashboardLayout";
 import useExpenseTracker from "../context/useExpenseTracker";
-import {
-  MdAdd,
-  MdDelete,
-  MdEdit,
-  MdOutlinePayment,
-  MdPlusOne,
-  MdTrendingUp,
-} from "react-icons/md";
-import AddIncomeModal from "../components/AddIncomeModal";
-import moment from "moment";
+
+
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
-import IncomeCard from "../components/IncomeCard";
+
+import AddIncomeModal from "../components/Income/AddIncomeModal";
+import IncomeCard from "../components/Income/IncomeCard";
 import IncomeBarChart from "../components/Income/IncomeBarChart";
 const Income = () => {
   const { incomes,last30DaysIncomes } = useExpenseTracker();
@@ -26,7 +20,7 @@ const Income = () => {
   };
   return (
     <DashboardLayout activeMenu={"Income"}>
-      <div className=" px-3 sm:px-8  rounded-md max-w-3xl sm:mx-auto ">
+      <div className=" px-3 sm:px-6  rounded-md  mx-auto w-full ">
         <div className="flex items-center justify-between py-4">
           <h1 className="py-2 font-bold"></h1>
           <button
@@ -43,12 +37,12 @@ const Income = () => {
         ) : (
           <>
           <div className="my-4 h-[450px]  w-full bg-white p-2 rounded-md z-20">
-            <h1 className="font-bld px-3">Last 30 Days Income</h1>
+            <h1 className="font-bold text-xl p-3">Last 30 Days Income Overview</h1>
             <IncomeBarChart incomeData={last30DaysIncomes}/>           
 
           </div>
           <div className="bg-white rounded-md p-4">
-            <h1 className="py-6 px-3 text-xl  font-bold ">All Incomes</h1>
+            <h1 className="py-6 px-3 text-xl  font-bold underline ">All Incomes</h1>
             {incomes.length === 0 ? (
               <p>No Incomes added yet.</p>
             ) : (

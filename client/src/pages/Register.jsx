@@ -28,7 +28,7 @@ const {register} = useAuth()
     }
   return (
     <div className='flex items-center justify-center h-screen '>
-        <div className='p-4 bg-white rounded-md w-[60%] md:w-[40%]'>
+        <div className='p-4 bg-white rounded-md w-[80%] md:w-[40%]'>
             <h1 className='text-2xl text-center py-4'>Register </h1>
             <form onSubmit={handleSubmit}>
                 <div className='mb-4'>

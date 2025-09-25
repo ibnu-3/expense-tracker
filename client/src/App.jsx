@@ -8,8 +8,9 @@ import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import { AuthProvider } from "./context/AuthContext";
 import { AppProvider } from "./context/AppContext";
-import EditIncomeModal from "./components/EditIncomeModal";
+
 import { ToastContainer } from "react-toastify";
+import EditIncomeModal from "./components/Income/EditIncomeModal";
 const App = () => {
   return (
     <BrowserRouter>

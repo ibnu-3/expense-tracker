@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { MdClose } from 'react-icons/md'
-import useExpenseTracker from '../context/useExpenseTracker'
+
 import moment from 'moment'
+import useExpenseTracker from '../../context/useExpenseTracker'
+import { toast } from 'react-toastify'
 const AddExpenseModal = ({open, onClose}) => {
     const [category,setCategory]=useState('')
     const [amount,setAmount]=useState(0)
@@ -12,23 +14,26 @@ const AddExpenseModal = ({open, onClose}) => {
 
     const handleSubmit =async (e) => {
         e.preventDefault();
+        const expenseData ={category,amount,date}
         if(!category || !amount || !date){
-            setError('All fields are required!')
+            toast.error('All fields are required!')
             return;
         }
         setError('')
         setLoading(true)
         try {
-            await addExpense(category,amount,date)
+            await addExpense(expenseData)
+            toast.success('Expense added!')
             onClose()
         } catch (error) {
             console.log(error)
+            toast.error(error.message || 'failed to add expense')
         }finally{
             setLoading(false)
         }
     }
   return (
-    <div className='fixed inset-0 flex items-center justify-center  bg-slate-800/50 backdrop-blur-sm'>
+    <div className='fixed inset-0 z-20 flex items-center justify-center  bg-slate-800/50 backdrop-blur-sm'>
         <div className='p-4 rounded-md bg-white sm:w-[60%] w-[80%] relative'>
             <div className='absolute  text-3xl text-slate-800 rounded-md -right-5 bg-slate-100 -top-5 ' onClick={onClose}>
                 <MdClose/>
