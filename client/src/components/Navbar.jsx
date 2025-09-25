@@ -36,8 +36,8 @@ const handleClick =(route)=>{
           </button>
         </div>
       </div>
-    {open &&  <div className="fixed top-14 inset-0 h-screen w-full bg-slate-400 opacity-40">
-  <ul className=" space-y-6 rounded-md  py-16  bg-slate-100 w-48  ">
+    {open &&  <div className="fixed top-14 inset-0 h-screen w-full  ">
+  <ul className=" space-y-6 rounded-md  py-16 bg-slate-400 h-screen w-48  ">
         {SIDEBAR_ITEMS.map((item) => (
           <li
             onClick={() => handleClick(item.path)}
