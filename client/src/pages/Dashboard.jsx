@@ -10,6 +10,7 @@ import {
 
 import useExpenseTracker from "../context/useExpenseTracker";
 import { BarChart } from "recharts";
+import ExpenseBarChart from "../components/Expense/ExpenseBarChart";
 
 const Dashboard = () => {
   const { incomes, expenses, last60DaysExpenses } = useExpenseTracker();
@@ -53,7 +54,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row  gap-4">
+        <div className="flex flex-col md:flex-row flex-wrap gap-4">
           <div className="mt-4 flex-1 rounded-md bg-white p-2  ">
             <h1 className="font-bold text-center  ">Total Overview</h1>
             <BarChart totalExpense={totalExpense} totalIncome={totalIncome} />
@@ -79,6 +80,12 @@ const Dashboard = () => {
                 ))}
               </ul>
             )}
+          </div>
+          <div className="h-[450px] bg-white w-full p-3 rounded-md">
+            <h1 className="font-bold text-xl ">
+              Last 60 days Expense Overview
+            </h1>
+            <ExpenseBarChart expenseData={last60DaysExpenses} />
           </div>
         </div>
       </div>

@@ -2,12 +2,15 @@ import moment from "moment";
 import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import useExpenseTracker from "../../context/useExpenseTracker";
+import EditExpenseModal from "./EditExpenseModal";
 
-const ExpenseCard = ({expenses}) => {
-  
+const ExpenseCard = ({expenses,onEdit, onClose}) => {
+  //const {deleteExpense}=useExpenseTracker()  
   return (
-    <div className="w-full bg-white rounded-md ">
-      <table className="w-full p-3">
+    <div className="w-full bg-white rounded-md my-6 ">
+      
+      <h1 className="font-bold text-xl text-center p-3">Tables of All Incomes</h1>
+      <table className="w-full p-3 mt-4 mx-3">
         <thead>
           <tr className=" ">
             <th className="px-4 py-2 border ">Category</th>
@@ -24,8 +27,8 @@ const ExpenseCard = ({expenses}) => {
                 {moment(expense.date).format("YYYY-MM-DD")}
               </td>
               <td className="px-4 py-2 border">{expense.amount}</td>
-              <td className="px-4 py-2 border flex items-center gap-2">
-                <MdEdit className="text-blue-600" />{" "}
+              <td className="px-4 py-2 border flex items-center justify-center gap-4">
+                <MdEdit className="text-blue-600" onClick={onEdit}/>{" "}
                 <MdDelete className="text-red-600" />
               </td>
             </tr>
