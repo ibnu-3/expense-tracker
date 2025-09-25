@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import useExpenseTracker from '../../context/useExpenseTracker'
 import axiosInstance from '../../utils/axiosInstance'
-const EditExpenseModal = ({open, onClose}) => {
+const EditExpenseModal = ({isOpen, onClose, expense}) => {
     const [source,setSource]=useState('')
     const [amount,setAmount]=useState(0)
     const [date,setDate]=useState('')
@@ -16,20 +16,8 @@ const EditExpenseModal = ({open, onClose}) => {
     const [Expense, setExpense] =useState({})
     const {updateExpense} =useExpenseTracker()
     const navigate =useNavigate()
-    const {id} =useParams()
-    useEffect(()=>{
-     const fetchExpense = async () => {
-        try {
-            const res =await axiosInstance.get(`/api/Expenses/${id}`)
-            setSource(res.data.source)
-            setAmount(res.data.amount)
-            setDate(res.data.date)
-        } catch (error) {
-            console.log(error)
-        }
-     }
-     fetchExpense()
-    },[id])
+   
+ 
 
     const handleSubmit =async (e) => {
         const expenseData ={source, amount, date}
@@ -38,7 +26,7 @@ const EditExpenseModal = ({open, onClose}) => {
         setError('')
         setLoading(true)
         try {
-           await updateExpense(expenseData)
+           await updateExpense(expense._id, expenseData)
            onClose()
            navigate('/Expense')
         } catch (error) {

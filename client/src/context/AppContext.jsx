@@ -68,16 +68,16 @@ const addExpense =async (expenseData) => {
     console.log(error)
   }
 }
-const updateExpense =async (id,expenseData) => {
-  try {
-    const res = axiosInstance.put(`/api/expenses/${id}`, expenseData)
-    setExpenses(expenses.map((expense)=>expense._id=== id ? res.data : expense))
-    handleChange()
-  } catch (error) {
-    console.log(error)
-  }
+const deleteExpense=async (id) => {
+   try {
+        await axiosInstance.delete(`/api/expenses/${id}`)
+        setExpenses((expenses.filter((item)=> item._id !== id)));
+         handleChange()
+    } catch (error) {
+        console.log(error)
+    }
 }
-    const value={incomes,addIncome,setIncomes,addExpense, updateExpense,deleteIncome, expenses,last30DaysIncomes, last60DaysExpenses}
+    const value={incomes,addIncome,setIncomes,addExpense,deleteIncome,deleteExpense, expenses,last30DaysIncomes, last60DaysExpenses}
     return(
         <AppContext.Provider value={value}>
             {!loading && children}

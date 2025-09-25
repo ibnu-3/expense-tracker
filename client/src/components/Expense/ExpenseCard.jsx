@@ -4,8 +4,8 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import useExpenseTracker from "../../context/useExpenseTracker";
 import EditExpenseModal from "./EditExpenseModal";
 
-const ExpenseCard = ({expenses,onEdit, onClose}) => {
-  //const {deleteExpense}=useExpenseTracker()  
+const ExpenseCard = ({expenses}) => {
+  const {deleteExpense}=useExpenseTracker()  
   return (
     <div className="w-full bg-white rounded-md my-6 ">
       
@@ -28,8 +28,8 @@ const ExpenseCard = ({expenses,onEdit, onClose}) => {
               </td>
               <td className="px-4 py-2 border">{expense.amount}</td>
               <td className="px-4 py-2 border flex items-center justify-center gap-4">
-                <MdEdit className="text-blue-600" onClick={onEdit}/>{" "}
-                <MdDelete className="text-red-600" />
+                <MdEdit className="text-blue-600" />{" "}
+                <MdDelete className="text-red-600" onClick={()=>deleteExpense(expense._id)}/>
               </td>
             </tr>
           </tbody>
