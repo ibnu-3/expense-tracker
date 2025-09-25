@@ -14,8 +14,9 @@ import moment from "moment";
 import Loader from "../components/Loader";
 import { useNavigate } from "react-router-dom";
 import IncomeCard from "../components/IncomeCard";
+import IncomeBarChart from "../components/Income/IncomeBarChart";
 const Income = () => {
-  const { incomes, deleteIncome } = useExpenseTracker();
+  const { incomes,last30DaysIncomes } = useExpenseTracker();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,9 +26,9 @@ const Income = () => {
   };
   return (
     <DashboardLayout activeMenu={"Income"}>
-      <div className="mt-4 bg-white px-6 sm:px-8 py-4 rounded-md max-w-3xl mx-auto">
+      <div className=" px-6 sm:px-8  rounded-md max-w-3xl mx-auto">
         <div className="flex items-center justify-between py-4">
-          <h1 className="py-2 font-bold">Incomes</h1>
+          <h1 className="py-2 font-bold"></h1>
           <button
             onClick={handleOpen}
             className="px-2 py-1  rounded-md bg-purple-600 text-slate-50 hover:bg-purple-700 flex items-center justify-between text-sm"
@@ -36,10 +37,16 @@ const Income = () => {
           </button>
         </div>
         {open && <AddIncomeModal open={open} onClose={() => setOpen(false)} />}
+          <div className="my-4 h-[450px]  w-full bg-white p-2 rounded-md">
+            <h1 className="font-bld px-3">Last 30 Days Income</h1>
+            <IncomeBarChart incomeData={last30DaysIncomes}/>           
+
+          </div>
         {loading ? (
           <Loader />
         ) : (
-          <div>
+          <div className="bg-white rounded-md p-4">
+            <h1 className="p-3 text-xl  font-bold ">All Incomes</h1>
             {incomes.length === 0 ? (
               <p>No Incomes added yet.</p>
             ) : (

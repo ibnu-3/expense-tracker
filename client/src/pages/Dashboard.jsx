@@ -11,6 +11,7 @@ import {
 import BarChart from "../components/BarChart";
 import ExpenseBarChart from "../components/ExpenseBarChart";
 import useExpenseTracker from "../context/useExpenseTracker";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
  const {incomes,expenses, last60DaysExpenses} =useExpenseTracker()
@@ -20,7 +21,7 @@ const Dashboard = () => {
   const totalExpense = expenses.reduce((acc, trans) => acc + trans.amount, 0);
 
   const totalBalance = totalIncome - totalExpense;
-  
+ 
   return (
     <DashboardLayout activeMenu={"Dashboard"}>
       <div className="flex flex-col gap-6">
@@ -53,6 +54,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+         
         <div className="flex  gap-4">
           <div className="mt-4 rounded-md bg-white p-2 w-96 ">
             <h1 className="font-bold text-center  ">Total Overview</h1>

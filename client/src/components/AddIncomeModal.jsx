@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { MdClose } from 'react-icons/md'
 import useExpenseTracker from '../context/useExpenseTracker'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 const AddIncomeModal = ({open, onClose}) => {
     const [source,setSource]=useState('')
     const [amount,setAmount]=useState(0)
@@ -13,16 +14,19 @@ const AddIncomeModal = ({open, onClose}) => {
     const handleSubmit =async (e) => {
         e.preventDefault();
         if(!source || !amount || !date){
-            setError('All fields are required!')
+            toast.error('All fields are required!')
             return;
         }
         setError('')
         setLoading(true)
         try {
-            await addIncome(source,amount,date)
+            const incomeData ={source,amount:parseFloat(amount),date}
+            await addIncome(incomeData);
+            toast.success('Income added!')
             onClose()
         } catch (error) {
             console.log(error)
+            toast.error(error.message ||'Failed to add income!')
         }finally{
             setLoading(false)
         }
@@ -47,7 +51,7 @@ const AddIncomeModal = ({open, onClose}) => {
                     <label htmlFor="Date" className='block mb-2'>Date</label>
                     <input type="date" placeholder='' className='px-4 py-2 w-full rounded-md bg-slate-300 'value={date} onChange={(e)=>setDate(e.target.value)} />
                 </div>
-                <button disabled={loading} className='px-5 py-2 rounded-md bg-purple-600 text-slate-200 w-full mt-4 disabled:bg-purple-500 ' type='submit'>{loading ?'adding ...':"Add Income"}</button>
+                <button disabled={loading} className='px-5 py-2 rounded-md bg-purple-600 text-slate-200 w-full mt-4 disabled:bg-purple-400 ' type='submit'>{loading ?'adding...':"Add Income"}</button>
             </form>
         </div>
     </div>

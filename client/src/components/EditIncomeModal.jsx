@@ -5,6 +5,7 @@ import moment from 'moment'
 import axiosInstance from '../utils/axiosInstance'
 import { useNavigate, useParams } from 'react-router-dom'
 import DashboardLayout from './DashboardLayout'
+import { toast } from 'react-toastify'
 const EditIncomeModal = ({open, onClose}) => {
     const [source,setSource]=useState('')
     const [amount,setAmount]=useState(0)
@@ -21,16 +22,17 @@ const EditIncomeModal = ({open, onClose}) => {
             const res =await axiosInstance.get(`/api/incomes/${id}`)
             setSource(res.data.source)
             setAmount(res.data.amount)
-            setDate(res.data.date)
+            setDate(moment(res.data.date).format('YYYY-MM-DD'))
         } catch (error) {
             console.log(error)
+            toast.error(error || 'failed to fetch income')
         }
      }
      fetchIncome()
     },[id])
 
     const handleSubmit =async (e) => {
-        const incomeData ={source, amount, date:new Date(date)}
+        const incomeData ={source, amount, date}
         e.preventDefault();
       
         setError('')
@@ -38,9 +40,11 @@ const EditIncomeModal = ({open, onClose}) => {
         try {
            const res =await axiosInstance.put(`/api/incomes/${id}`, incomeData)
            setIncomes(incomes.map((item)=> item._id === id ? res.data : item))
+           toast.success('Income updated!')
            navigate('/income')
         } catch (error) {
             console.log(error)
+            toast.error(error.message || 'failed to update!')
         }finally{
             setLoading(false)
         }

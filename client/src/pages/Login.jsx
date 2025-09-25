@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../utils/axiosInstance";
 import useAuth from "../context/useAuth";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,10 +18,11 @@ const Login = () => {
     setLoading(true);
     try {
       await login(email, password);
+      toast.success('Login in successfully!')
       navigate('/')
     } catch (error) {
       console.log(error);
-      setError(error);
+      toast.error(error || 'failed to login');
     } finally {
       setLoading(false);
     }

@@ -9,7 +9,7 @@ import Expense from "./pages/Expense";
 import { AuthProvider } from "./context/AuthContext";
 import { AppProvider } from "./context/AppContext";
 import EditIncomeModal from "./components/EditIncomeModal";
-
+import { ToastContainer } from "react-toastify";
 const App = () => {
   return (
     <BrowserRouter>
@@ -51,6 +51,19 @@ const App = () => {
               }
             />
           </Routes>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          
+          />
         </AppProvider>
       </AuthProvider>
     </BrowserRouter>

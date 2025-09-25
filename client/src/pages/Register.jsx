@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import axiosInstance from '../utils/axiosInstance'
 import useAuth from '../context/useAuth'
+import { toast } from 'react-toastify'
 const Register = () => {
     const [fullName, setFullName] =useState('')
     const [email, setEmail] =useState('')
@@ -16,10 +17,11 @@ const {register} = useAuth()
         setLoading(true)
         try {
            await register(fullName, email, password)
+           toast.success('Registered successfully!')
             navigate('/')           
         } catch (error) {
             console.log(error)
-            setError(error || 'login failed')
+            toast.error(error || 'Register failed')
         }finally{
             setLoading(false)
         }

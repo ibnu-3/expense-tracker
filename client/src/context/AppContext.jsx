@@ -30,10 +30,10 @@ useEffect(() => {
     };
     fetchData();
   }, []);
-const addIncome =async (source,amount,date) => {
+const addIncome =async (incomeData) => {
  
     try {
-        const res =await axiosInstance.post('/api/incomes', {source,amount,date})
+        const res =await axiosInstance.post('/api/incomes', incomeData)
         setIncomes([...incomes, res.data])
         console.log(res.data)
     } catch (error) {
