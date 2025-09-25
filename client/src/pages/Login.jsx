@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstance";
+
 import useAuth from "../context/useAuth";
-import Loader from "../components/Loader";
+
 import { toast } from "react-toastify";
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ const Login = () => {
   };
   return (
     <div className="flex items-center justify-center h-screen ">
-      <div className="p-4 bg-white rounded-md w-[80%] md:w-[40%]">
+      <div className="p-4 bg-white rounded-md w-[80%] md:w-[40%] shadow-2xl">
         <h1 className="text-2xl md:text-3xl text-center ">Login </h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
