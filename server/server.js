@@ -22,6 +22,7 @@ app.use(
     ],
     methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS", "HEAD",'ORIGIN'],
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 app.use(express.json());

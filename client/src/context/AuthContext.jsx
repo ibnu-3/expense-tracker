@@ -35,7 +35,7 @@ useEffect(()=>{
         
         try {
             const response =await axiosInstance.post('/api/users/login', {email,password});
-            console.log(response.data)
+           
             setUser(response.data)
         } catch (error) {
             console.log(error.message || 'login failed')
@@ -46,6 +46,7 @@ useEffect(()=>{
         try {
             await axiosInstance.post('/api/users/logout')
             setUser(null)
+            
         } catch (error) {
             console.log(error.message ||'logout failed')
         }
@@ -53,7 +54,7 @@ useEffect(()=>{
     const value={user, register,login, logout, loading}
     return(
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     )
 }

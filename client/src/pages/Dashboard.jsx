@@ -1,5 +1,5 @@
 import DashboardLayout from "../components/DashboardLayout";
-
+import moment from 'moment'
 import {
   MdAllInclusive,
   MdOutline3gMobiledata,
@@ -9,18 +9,29 @@ import {
 } from "react-icons/md";
 
 import useExpenseTracker from "../context/useExpenseTracker";
-import { BarChart } from "recharts";
+
 import ExpenseBarChart from "../components/Expense/ExpenseBarChart";
+import BarChart from "../components/Dashboard/BarChart";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import AddIncomeModal from "../components/Income/AddIncomeModal";
+import AddExpenseModal from "../components/Expense/AddExpenseModal";
+import useAuth from "../context/useAuth";
+import IncomeBarChart from "../components/Income/IncomeBarChart";
 
 const Dashboard = () => {
-  const { incomes, expenses, last60DaysExpenses } = useExpenseTracker();
+  const { incomes, expenses, last60DaysExpenses,last30DaysIncomes } = useExpenseTracker();
+  const {user}=useAuth()
+  const [open, setOpen] = useState(false);
   const totalIncome = incomes.reduce((acc, transaction) => {
     return acc + transaction.amount;
   }, 0);
   const totalExpense = expenses.reduce((acc, trans) => acc + trans.amount, 0);
 
   const totalBalance = totalIncome - totalExpense;
-
+  const handleOpen = () => {
+    setOpen(!open);
+  };
   return (
     <DashboardLayout activeMenu={"Dashboard"}>
       <div className="flex flex-col gap-6 max-sm:mt-6 ">
@@ -55,38 +66,84 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-col md:flex-row flex-wrap gap-4">
-          <div className="mt-4 flex-1 rounded-md bg-white p-2  ">
-            <h1 className="font-bold text-center  ">Total Overview</h1>
-            <BarChart totalExpense={totalExpense} totalIncome={totalIncome} />
-          </div>
-          <div className="mt-4  flex-1 bg-white p-2 rounded-md">
-            <h1 className="font-bold text-lg py-4">Recent Expenses</h1>
-            {last60DaysExpenses.length === 0 ? (
-              <p>No expenses for now</p>
-            ) : (
-              <ul className="space-y-5">
-                {last60DaysExpenses.map((item, index) => (
-                  <li key={index} className="flex items-center justify-between">
-                    <div className="flex gap-2 items-center font-bold">
-                      <div className="p-2.5 bg-red-500/70 rounded-md ">
-                        <MdOutline3gMobiledata className="" />
+          {expenses.length > 0 && (
+            <div className="mt-4 flex-1 rounded-md bg-white p-2  ">
+              <h1 className="font-bold text-center  ">Total Overview</h1>
+              <BarChart totalExpense={totalExpense} totalIncome={totalIncome} />
+            </div>
+          )}
+          {expenses.length === 0 ? (
+            <div className="flex flex-col  items-center justify-center  h-96 gap-10 w-full ">
+              <p className="capitalize text-2xl">Welcome <span className="font-bold italic">{user.fullName} </span></p>
+              <span>{moment().format("MMM-DD-YYYY")}</span>
+              <p className="text-slate-500">Add and track your transactions! </p>
+              <div className="flex gap-10">
+                <button
+                onClick={handleOpen}
+                className="px-4 py-2   rounded-md bg-teal-600 text-slate-50 hover:bg-teal-700 flex items-center justify-between "
+              >
+                Add Income
+              </button>
+              <button
+                onClick={() => setOpen(!open)}
+                className="px-4 py-2   text-slate-100 bg-red-600 rounded-md hover:bg-red-800"
+              >
+                Add Expense
+              </button>
+              </div>
+
+              {open && <AddExpenseModal onClose={() => setOpen(false)} />}
+              {open && (
+                <AddIncomeModal open={open} onClose={() => setOpen(false)} />
+              )}
+            </div>
+          ) : (
+            <div className="mt-4  flex-1 bg-white p-2 rounded-md">
+             <div className="flex items-center justify-between">
+               <h1 className="font-bold text-lg py-4">Recent Expenses</h1>
+               <Link to={'/expense'} className="px-2 py-1 bg-slate-200/60 rounded-md text-sm text-slate-500">See More</Link>
+             </div>
+              {last60DaysExpenses.length === 0 ? (
+                <p className="flex items-center p-4   text-slate-500">
+                  No expenses added yet!
+                </p>
+              ) : (
+                <ul className="space-y-5">
+                  {last60DaysExpenses.map((item, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex gap-2 items-center font-bold">
+                        <div className="p-2.5 bg-red-500/70 rounded-md ">
+                          <MdOutline3gMobiledata className="" />
+                        </div>
+                        <p>{item.category}</p>
+                      </div>{" "}
+                      <div className="px-4 py-2 flex items-center gap-2 rounded-md bg-red-100 text-red-600">
+                        -${item.amount} <MdTrendingDown />
                       </div>
-                      <p>{item.category}</p>
-                    </div>{" "}
-                    <div className="px-4 py-2 flex items-center gap-2 rounded-md bg-red-100 text-red-600">
-                      -${item.amount} <MdTrendingDown />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div className="h-[450px] bg-white w-full p-3 rounded-md">
-            <h1 className="font-bold text-xl ">
-              Last 60 days Expense Overview
-            </h1>
-            <ExpenseBarChart expenseData={last60DaysExpenses} />
-          </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+          {last60DaysExpenses.length > 0 && (
+            <div className="h-[450px] bg-white w-full p-3 rounded-md">
+              <h1 className="font-bold text-xl ">
+                Last 60 days Expense Overview
+              </h1>
+              <ExpenseBarChart expenseData={last60DaysExpenses} />
+            </div>
+          )}
+         
+            {incomes.length >0 && <div className="my-4 h-[450px]  w-full bg-white p-2 rounded-md z-20">
+            <h1 className="font-bold text-xl p-3">Last 30 Days Income Overview</h1>
+            <IncomeBarChart incomeData={last30DaysIncomes}/>           
+
+          </div>}
+         
         </div>
       </div>
     </DashboardLayout>

@@ -36,11 +36,11 @@ const Income = () => {
           <Loader />
         ) : (
           <>
-          <div className="my-4 h-[450px]  w-full bg-white p-2 rounded-md z-20">
+         {incomes.length >0 && <div className="my-4 h-[450px]  w-full bg-white p-2 rounded-md z-20">
             <h1 className="font-bold text-xl p-3">Last 30 Days Income Overview</h1>
             <IncomeBarChart incomeData={last30DaysIncomes}/>           
 
-          </div>
+          </div>}
           <div className="bg-white rounded-md p-4">
             <h1 className="py-6 px-3 text-xl  font-bold underline ">All Incomes</h1>
             {incomes.length === 0 ? (

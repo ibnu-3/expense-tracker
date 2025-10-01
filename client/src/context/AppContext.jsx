@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { AppContext } from "./useExpenseTracker"
 import axiosInstance from "../utils/axiosInstance";
+import useAuth from "./useAuth";
 
 export const AppProvider =({children})=>{
   const [incomes, setIncomes] = useState([]);
@@ -9,11 +10,13 @@ export const AppProvider =({children})=>{
   const [last30DaysIncomes, setLast30DaysIncomes] = useState([]);
   const [loading, setLoading] =useState(false)
   const [incomeListChanged, setIncomeListChanged] = useState(false);
+  const {user}=useAuth()
   const handleChange =()=>{
     setIncomeListChanged(!incomeListChanged)
   }
 useEffect(() => {
-    const fetchData = async () => {
+   if (user) {
+     const fetchData = async () => {
     
       try {
         const incomeResponse = await axiosInstance.get("/api/incomes");
@@ -33,7 +36,14 @@ useEffect(() => {
       }
     };
     fetchData();
-  }, [incomeListChanged]);
+   } else {
+    setExpenses([])
+    setIncomes([])
+    setLast30DaysIncomes([])
+    setLast60DaysExpenses([])
+   }
+    
+  }, [incomeListChanged, user]);
 const addIncome =async (incomeData) => {
  
     try {
@@ -80,7 +90,7 @@ const deleteExpense=async (id) => {
     const value={incomes,addIncome,setIncomes,addExpense,deleteIncome,deleteExpense, expenses,last30DaysIncomes, last60DaysExpenses}
     return(
         <AppContext.Provider value={value}>
-            {!loading && children}
+            { children}
         </AppContext.Provider>
     )
 }

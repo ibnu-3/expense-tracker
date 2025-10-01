@@ -10,7 +10,7 @@ const ExpenseCard = ({expenses}) => {
     <div className="w-full bg-white rounded-md my-6 ">
       
       <h1 className="font-bold text-xl text-center p-3">Tables of All Incomes</h1>
-      <table className="w-full p-3 mt-4 mx-3">
+      <table className="w-full p-3 mt-4 mx-3 overflow-x-auto">
         <thead>
           <tr className=" ">
             <th className="px-4 py-2 border ">Category</th>
